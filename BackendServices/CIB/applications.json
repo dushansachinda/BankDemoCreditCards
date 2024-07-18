@@ -1,0 +1,33 @@
+[
+  {
+    "reference_number": "9876543210",
+    "applicant_name": "John Doe",
+    "date_of_birth": "1985-03-15",
+    "social_security_number": "123-45-6789",
+    "credit_score": 720,
+    "credit_report": {
+      "credit_history": "Good",
+      "credit_utilization": "Low",
+      "credit_accounts": 3,
+      "late_payments": 0,
+      "collections": 0,
+      "public_records": 0
+    }
+  },
+
+  {
+    "reference_number": "9876543211",
+    "applicant_name": "John Smith",
+    "date_of_birth": "1995-08-15",
+    "social_security_number": "123-45-6788",
+    "credit_score": 570,
+    "credit_report": {
+      "credit_history": "Good",
+      "credit_utilization": "High",
+      "credit_accounts": 2,
+      "late_payments": 1,
+      "collections": 0,
+      "public_records": 0
+    }
+  }
+]

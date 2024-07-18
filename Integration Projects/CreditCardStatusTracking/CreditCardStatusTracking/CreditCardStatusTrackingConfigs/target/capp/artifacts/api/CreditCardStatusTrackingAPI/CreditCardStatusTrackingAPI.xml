@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/creditcardrequest_application" name="CreditCardStatusTrackingAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" uri-template="/status/{application_id}">
+        <inSequence>
+            <call>
+                <endpoint key="CMSGetStatusEP"/>
+            </call>
+            <log/>
+            <propertyGroup>
+                <property expression="json-eval($.application_id)" name="application_id" scope="default" type="STRING"/>
+                <property expression="json-eval($.status)" name="cms_status" scope="default" type="STRING"/>
+                <property expression="json-eval($.message)" name="message" scope="default" type="STRING"/>
+            </propertyGroup>
+            <filter regex="Invalid application Id" source="get-property('message')">
+                <then>
+                    <log level="full"/>
+                    <payloadFactory media-type="json">
+                        <format>{&#xd;
+"message":"$1"&#xd;
+}</format>
+                        <args>
+                            <arg evaluator="xml" expression="get-property('message')"/>
+                        </args>
+                    </payloadFactory>
+                </then>
+                <else>
+                    <call>
+                        <endpoint key="WorkFlowStatusEP"/>
+                    </call>
+                    <propertyGroup>
+                        <property expression="json-eval($.workflow_status)" name="workflow_status" scope="default" type="STRING"/>
+                    </propertyGroup>
+                    <log level="custom">
+                        <property expression="get-property('workflow_status')" name="workflow_status"/>
+                    </log>
+                    <payloadFactory media-type="json">
+                        <format>{&#xd;
+"application_id": "$1",&#xd;
+"cms_status": "$2",&#xd;
+"workflow_status": "$3" &#xd;
+}</format>
+                        <args>
+                            <arg evaluator="xml" expression="get-property('application_id')"/>
+                            <arg evaluator="xml" expression="get-property('cms_status')"/>
+                            <arg evaluator="xml" expression="get-property('workflow_status')"/>
+                        </args>
+                    </payloadFactory>
+                </else>
+            </filter>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence>
+            <sequence key="FaultSequence"/>
+        </faultSequence>
+    </resource>
+</api>

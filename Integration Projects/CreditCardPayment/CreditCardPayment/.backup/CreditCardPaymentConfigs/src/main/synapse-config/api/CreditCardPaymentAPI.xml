@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/creditCard" name="CreditCardPaymentAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/payment">
+        <inSequence>
+            <log level="full"/>
+            <propertyGroup description="Get credit card details">
+                <property expression="json-eval($.merchant_id)" name="merchantId" scope="default" type="STRING"/>
+                <property expression="json-eval($.amount)" name="amount" scope="default" type="STRING"/>
+                <property expression="json-eval($.currency)" name="currency" scope="default" type="STRING"/>
+                <property expression="json-eval($.creditCard.number)" name="cardNo" scope="default" type="STRING"/>
+                <property expression="json-eval($.creditCard.expirationDate)" name="expiryDate" scope="default" type="STRING"/>
+                <property expression="json-eval($.creditCard.cvv)" name="cvv" scope="default" type="STRING"/>
+            </propertyGroup>
+            <payloadFactory media-type="json">
+                <format>{&#xd;
+  "merchant_id": "$1",&#xd;
+  "amount": "$2",&#xd;
+  "currency": "$3",&#xd;
+  "card_number": "$4",&#xd;
+  "expiry_date": "$5",&#xd;
+  "cvv": "$6"&#xd;
+}</format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('merchantId')"/>
+                    <arg evaluator="xml" expression="get-property('amount')"/>
+                    <arg evaluator="xml" expression="get-property('currency')"/>
+                    <arg evaluator="xml" expression="get-property('cardNo')"/>
+                    <arg evaluator="xml" expression="get-property('expiryDate')"/>
+                    <arg evaluator="xml" expression="get-property('cvv')"/>
+                </args>
+            </payloadFactory>
+            <call>
+                <endpoint key="FRMFrauderyEP"/>
+            </call>
+            <log level="full"/>
+            <propertyGroup>
+                <property expression="json-eval($.message)" name="messageFRM" scope="default" type="STRING"/>
+                <property expression="json-eval($.status)" name="statusFRM" scope="default" type="STRING"/>
+                <property expression="json-eval($.reason)" name="reasonFRM" scope="default" type="STRING"/>
+            </propertyGroup>
+            <filter regex="declined" source="get-property('statusFRM')">
+                <then>
+                    <log level="full"/>
+                    <payloadFactory media-type="json">
+                        <format>{"status":"$1",&#xd;
+"message":"$2",&#xd;
+"reason":"$3"}</format>
+                        <args>
+                            <arg evaluator="xml" expression="get-property('statusFRM')"/>
+                            <arg evaluator="xml" expression="get-property('messageFRM')"/>
+                            <arg evaluator="xml" expression="get-property('reasonFRM')"/>
+                        </args>
+                    </payloadFactory>
+                    <log level="full"/>
+                </then>
+                <else>
+                    <log level="full"/>
+                    <call>
+                        <endpoint key="CoreBankAuthEP"/>
+                    </call>
+                    <log level="full"/>
+                    <propertyGroup>
+                        <property expression="json-eval($.message)" name="messageCBS" scope="default" type="STRING"/>
+                        <property expression="json-eval($.status)" name="statusCBS" scope="default" type="STRING"/>
+                        <property expression="json-eval($.reason)" name="reasonCBS" scope="default" type="STRING"/>
+                        <property expression="json-eval($.transaction_id)" name="transIdCBS" scope="default" type="STRING"/>
+                        <property expression="json-eval($.email)" name="email" scope="default" type="STRING"/>
+                    </propertyGroup>
+                    <filter regex="declined" source="get-property('statusCBS')">
+                        <then>
+                            <log/>
+                            <payloadFactory media-type="json">
+                                <format>{&#xd;
+    "from": "bankingdemopoc@gmail.com",&#xd;
+    "to": "$4",&#xd;
+    "cc": "bankingdemopoc@gmail.com",&#xd;
+    "subject": "Payment failed",&#xd;
+    "content": "Transaction ID $1. $2 $3",&#xd;
+    "contentType":"text/plain"&#xd;
+    &#xd;
+}</format>
+                                <args>
+                                    <arg evaluator="xml" expression="get-property('transIdCBS')"/>
+                                    <arg evaluator="xml" expression="get-property('messageCBS')"/>
+                                    <arg evaluator="xml" expression="get-property('reasonCBS')"/>
+                                    <arg evaluator="xml" expression="get-property('email')"/>
+                                </args>
+                            </payloadFactory>
+                            <email.send configKey="smtpconnection">
+                                <from>{json-eval($.from)}</from>
+                                <to>{json-eval($.to)}</to>
+                                <cc>{json-eval($.cc)}</cc>
+                                <subject>{json-eval($.subject)}</subject>
+                                <content>{json-eval($.content)}</content>
+                                <contentType>{json-eval($.contentType)}</contentType>
+                            </email.send>
+                            <payloadFactory media-type="json">
+                                <format>{&#xd;
+  "status": "failure",&#xd;
+  "message": "Payment failed. Insufficient funds.",&#xd;
+  "error": {&#xd;
+    "code": "INSUFFICIENT_FUNDS",&#xd;
+    "description": "The account has insufficient funds to process the payment."&#xd;
+  }&#xd;
+}</format>
+                                <args/>
+                            </payloadFactory>
+                        </then>
+                        <else>
+                            <log/>
+                            <payloadFactory media-type="json">
+                                <format>{&#xd;
+    "from": "bankingdemopoc@gmail.com",&#xd;
+    "to": "bankingdemopoc@gmail.com",&#xd;
+    "subject": "Payment successful",&#xd;
+    "content": "Transaction ID $1. $2",&#xd;
+    "contentType":"text/plain"&#xd;
+    &#xd;
+}</format>
+                                <args>
+                                    <arg evaluator="xml" expression="get-property('transIdCBS')"/>
+                                    <arg evaluator="xml" expression="get-property('messageCBS')"/>
+                                </args>
+                            </payloadFactory>
+                            <email.send configKey="smtpconnection">
+                                <from>{json-eval($.from)}</from>
+                                <to>{json-eval($.to)}</to>
+                                <subject>{json-eval($.subject)}</subject>
+                                <content>{json-eval($.content)}</content>
+                                <contentType>{json-eval($.contentType)}</contentType>
+                            </email.send>
+                            <payloadFactory media-type="json">
+                                <format>{&#xd;
+  "status": "success",&#xd;
+  "message": "Payment successful",&#xd;
+  "transactionId": "$1",&#xd;
+  "amount": "$2",&#xd;
+  "currency": "$3"&#xd;
+}</format>
+                                <args>
+                                    <arg evaluator="xml" expression="get-property('transIdCBS')"/>
+                                    <arg evaluator="xml" expression="get-property('amount')"/>
+                                    <arg evaluator="xml" expression="get-property('currency')"/>
+                                </args>
+                            </payloadFactory>
+                        </else>
+                    </filter>
+                    <log level="full">
+                        <property expression="get-property(creditScore)" name="score"/>
+                    </log>
+                </else>
+            </filter>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence>
+            <sequence key="FaultSequence"/>
+        </faultSequence>
+    </resource>
+</api>

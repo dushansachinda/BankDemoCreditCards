@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="FaultSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="custom">
+        <property name="MESSAGE" value="Executing API fault sequence"/>
+        <property expression="get-property('ERROR_CODE')" name="ERROR_CODE"/>
+        <property expression="get-property('ERROR_MESSAGE')" name="ERROR_MESSAGE"/>
+        <property expression="get-property('ERROR_DETAIL')" name="ERROR_DETAIL"/>
+        <property expression="get-property('ERROR_EXCEPTION')" name="ERROR_EXCEPTION"/>
+        <property expression="get-property('SYNAPSE_REST_API')" name="SYNAPSE_REST_API"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>{&#xd;
+  "Error code":"$1",&#xd;
+  "Error message":"$2",&#xd;
+  "Error detail":"$3"&#xd;
+  "API name":"$4"&#xd;
+}</format>
+        <args>
+            <arg evaluator="xml" expression="get-property('ERROR_CODE')"/>
+            <arg evaluator="xml" expression="get-property('ERROR_MESSAGE')"/>
+            <arg evaluator="xml" expression="get-property('ERROR_DETAIL')"/>
+            <arg evaluator="xml" expression="get-property('SYNAPSE_REST_API')"/>
+        </args>
+    </payloadFactory>
+    <respond/>
+</sequence>

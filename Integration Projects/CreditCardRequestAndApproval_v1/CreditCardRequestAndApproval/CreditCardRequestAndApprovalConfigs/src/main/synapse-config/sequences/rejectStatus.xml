@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="rejectStatus" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="full"/>
+    <payloadFactory media-type="json">
+        <format>{&#xd;
+  "application_id": "$1",&#xd;
+  "status": "rejected"&#xd;
+ &#xd;
+}</format>
+        <args>
+            <arg evaluator="xml" expression="get-property('referenceNumber')"/>
+        </args>
+    </payloadFactory>
+    <log level="full"/>
+    <call>
+        <endpoint key="CMSUpdateStatusEP"/>
+    </call>
+    <log level="full"/>
+    <payloadFactory media-type="json">
+        <format>{&#xd;
+    "message": "$1"&#xd;
+}</format>
+        <args>
+            <arg evaluator="xml" expression="get-property('message')"/>
+        </args>
+    </payloadFactory>
+    <log level="full"/>
+</sequence>

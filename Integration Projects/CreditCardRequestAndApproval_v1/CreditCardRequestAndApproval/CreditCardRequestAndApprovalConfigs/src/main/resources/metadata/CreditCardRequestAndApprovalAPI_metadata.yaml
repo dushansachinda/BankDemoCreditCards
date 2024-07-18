@@ -1,0 +1,11 @@
+---
+key: "CreditCardRequestAndApprovalAPI-1.0.0"
+name : "CreditCardRequestAndApprovalAPI"
+displayName : "CreditCardRequestAndApprovalAPI"
+description: "Sample API"
+version: "1.0.0"
+serviceUrl: "http://{MI_HOST}:{MI_PORT}/bank"
+definitionType: "OAS3"
+securityType: "BASIC"
+mutualSSLEnabled: false
+apiId : "null"

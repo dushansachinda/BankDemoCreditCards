@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="CreditCardPaymentAPI" groupId="wso2.sampleHelloWorldDocker.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/CreditCardPaymentAPI.xml</file>
+    </artifact>
+    <artifact name="CreditCardPaymentAPI_swagger" groupId="wso2.sampleHelloWorldDocker.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/CreditCardPaymentAPI_swagger.yaml</file>
+    </artifact>
+    <artifact name="CreditCardPaymentAPI_metadata" groupId="wso2.sampleHelloWorldDocker.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/CreditCardPaymentAPI_metadata.yaml</file>
+    </artifact>
+    <artifact name="FRMFrauderyEP" groupId="wso2.sampleHelloWorldDocker.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/FRMFrauderyEP.xml</file>
+    </artifact>
+    <artifact name="CoreBankAuthEP" groupId="wso2.sampleHelloWorldDocker.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CoreBankAuthEP.xml</file>
+    </artifact>
+    <artifact name="smtpconnection" groupId="wso2.sampleHelloWorldDocker.local-entry" version="1.0.0" type="synapse/local-entry" serverRole="EnterpriseServiceBus">
+        <file>\src\main\synapse-config\local-entries\smtpconnection.xml</file>
+    </artifact>
+    <artifact name="FaultSequence" groupId="wso2.bankDemo.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/FaultSequence.xml</file>
+    </artifact>
+</artifacts>

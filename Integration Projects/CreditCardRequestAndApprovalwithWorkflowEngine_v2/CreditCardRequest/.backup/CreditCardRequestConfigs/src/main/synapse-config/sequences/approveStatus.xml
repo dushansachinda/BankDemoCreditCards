@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="approveStatus" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="full"/>
+    <payloadFactory media-type="json">
+        <format>{&#xd;
+  "application_id": "$1",&#xd;
+  "status": "approved"&#xd;
+ &#xd;
+}</format>
+        <args>
+            <arg evaluator="xml" expression="get-property('referenceNumber')"/>
+        </args>
+    </payloadFactory>
+    <log level="full"/>
+    <call>
+        <endpoint key="CMSUpdateStatusEP"/>
+    </call>
+    <log level="full"/>
+    <payloadFactory media-type="json">
+        <format>{&#xd;
+    "user_id": "$1",&#xd;
+    "credit_score": $2,&#xd;
+    "credit_rating": "$3",&#xd;
+    "requested_credit_limit": $4,&#xd;
+    "approved_credit_limit": $5,&#xd;
+    "message": "$6"&#xd;
+}</format>
+        <args>
+            <arg evaluator="xml" expression="get-property('user_id')"/>
+            <arg evaluator="xml" expression="get-property('credit_score')"/>
+            <arg evaluator="xml" expression="get-property('credit_rating')"/>
+            <arg evaluator="xml" expression="get-property('requested_credit_limit')"/>
+            <arg evaluator="xml" expression="get-property('approved_credit_limit')"/>
+            <arg evaluator="xml" expression="get-property('message')"/>
+        </args>
+    </payloadFactory>
+    <log level="full"/>
+</sequence>

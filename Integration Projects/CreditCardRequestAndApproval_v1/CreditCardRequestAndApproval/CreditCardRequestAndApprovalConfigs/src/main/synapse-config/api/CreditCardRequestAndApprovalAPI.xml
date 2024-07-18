@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/bank" name="CreditCardRequestAndApprovalAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/creditCardRequest">
+        <inSequence>
+            <log level="full"/>
+            <propertyGroup description="Get first_name,last_name and social_security_number">
+                <property expression="json-eval($.first_name)" name="uri.var.first_name" scope="default" type="STRING"/>
+                <property expression="json-eval($.last_name)" name="uri.var.last_name" scope="default" type="STRING"/>
+                <property expression="json-eval($.social_security_number)" name="uri.var.social_security_number" scope="default" type="STRING"/>
+                <property expression="json-eval($.address)" name="address" scope="default" type="STRING"/>
+                <property expression="json-eval($.credit_limit)" name="creditLimit" scope="default" type="STRING"/>
+                <property expression="json-eval($.annual_income)" name="annualIncome" scope="default" type="STRING"/>
+                <property expression="json-eval($.employment_status)" name="employmentStatus" scope="default" type="STRING"/>
+                <property expression="json-eval($.email)" name="email" scope="default" type="STRING"/>
+                <property expression="json-eval($.phone)" name="phone" scope="default" type="STRING"/>
+            </propertyGroup>
+            <call>
+                <endpoint key="CoreBankUserEP"/>
+            </call>
+            <propertyGroup>
+                <property expression="json-eval($.message)" name="Message" scope="default" type="STRING"/>
+                <property expression="json-eval($.customer_id)" name="uri.var.user_id" scope="default" type="STRING"/>
+            </propertyGroup>
+            <filter regex="Invalid User details" source="get-property('Message')">
+                <then>
+                    <log level="full"/>
+                    <payloadFactory media-type="json">
+                        <format>{"message":"Please register"}</format>
+                        <args/>
+                    </payloadFactory>
+                    <log level="full"/>
+                </then>
+                <else>
+                    <sequence key="ValidUserId"/>
+                </else>
+            </filter>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence>
+            <sequence key="FaultSequence"/>
+        </faultSequence>
+    </resource>
+</api>

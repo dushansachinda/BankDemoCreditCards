@@ -1,0 +1,11 @@
+[container.image]
+name="cib-service"
+tag="0.1.0"
+
+[[container.copy.files]]
+sourceFile="./applications.json"
+target="./applications.json"
+
+[[container.copy.files]]
+sourceFile="../CMS/requests.json"
+target="../CMS/requests.json"

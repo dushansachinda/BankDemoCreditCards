@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>wso2.bankDemo</groupId>
+  <artifactId>CreditCardRequestConfigs_module</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>CreditCardRequestConfigs_module</name>
+  <description>CreditCardRequestConfigs_module</description>
+  <modules>
+    <module>artifacts/api/CreditCardRequestAPI</module>
+    <module>artifacts/metadata/CreditCardRequestAPI_swagger</module>
+    <module>artifacts/metadata/CreditCardRequestAPI_metadata</module>
+    <module>artifacts/endpoint/BusinessRulesEngineEP</module>
+    <module>artifacts/endpoint/CIBRequestWorkFlowEP</module>
+    <module>artifacts/endpoint/CIBScoreRequestEP</module>
+    <module>artifacts/endpoint/CMSRequestEP</module>
+    <module>artifacts/endpoint/CMSUpdateStatusEP</module>
+    <module>artifacts/endpoint/CoreBankRatingEP</module>
+    <module>artifacts/endpoint/CreditLimitWorkFlowEP</module>
+    <module>artifacts/endpoint/CreditRatingWorkFlowEP</module>
+    <module>artifacts/endpoint/WorkFlowStartEP</module>
+    <module>artifacts/endpoint/CoreBankUserEP</module>
+    <module>artifacts/sequence/approveStatus</module>
+    <module>artifacts/sequence/rejectStatus</module>
+    <module>artifacts/sequence/ValidUserId</module>
+  </modules>
+  <distributionManagement>
+    <repository>
+      <id>release</id>
+      <name>Release Distribution Repository</name>
+      <url>https://example.com/nexus/repository</url>
+    </repository>
+  </distributionManagement>
+</project>

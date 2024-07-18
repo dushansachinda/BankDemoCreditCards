@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:modeler="http://activiti.com/modeler" targetNamespace="http://www.activiti.org/processdef" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="15.1.3" modeler:version="1.0en" modeler:exportDateTime="20231023095242449" modeler:modelId="103" modeler:modelVersion="1" modeler:modelLastUpdated="1698034907266">
+  <bpmn2:process id="CreditCardRequestWorkflow" name="Credit Card Request Work flow" isExecutable="true">
+    <bpmn2:extensionElements>
+      <modeler:deleteallvariables deleteallvariables="false" />
+    </bpmn2:extensionElements>
+    <bpmn2:startEvent id="startEvent1">
+      <bpmn2:extensionElements>
+        <modeler:editor-resource-id>startEvent1</modeler:editor-resource-id>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>sid-63A1C71F-BC99-4379-B5EA-2F1F5E953BF0</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="sid-63A1C71F-BC99-4379-B5EA-2F1F5E953BF0" sourceRef="startEvent1" targetRef="sid-D72DAE05-ECCE-48D7-AAA5-D80D1D5B2273">
+      <bpmn2:extensionElements>
+        <modeler:editor-resource-id>sid-63A1C71F-BC99-4379-B5EA-2F1F5E953BF0</modeler:editor-resource-id>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:serviceTask id="sid-D72DAE05-ECCE-48D7-AAA5-D80D1D5B2273" name="CIB credit score request" activiti:class="com.bank.creditCardRequest.Controllers.WorkflowController">
+      <bpmn2:extensionElements>
+        <modeler:editor-resource-id>sid-D72DAE05-ECCE-48D7-AAA5-D80D1D5B2273</modeler:editor-resource-id>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>sid-63A1C71F-BC99-4379-B5EA-2F1F5E953BF0</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_14qrjcy</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:serviceTask id="sid-2F82965F-032E-4D52-9CA9-F38646C228E2" name="Credit Card Grant Notification" activiti:class="com.bank.creditCardRequest.Controllers.WorkflowController">
+      <bpmn2:extensionElements>
+        <modeler:editor-resource-id>sid-2F82965F-032E-4D52-9CA9-F38646C228E2</modeler:editor-resource-id>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_1e7btrh</bpmn2:incoming>
+      <bpmn2:outgoing>sid-50F86AD3-FCF7-46A9-A40C-E878925EB678</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:endEvent id="sid-1EAC4808-059C-463E-8B24-89D2720278C6">
+      <bpmn2:extensionElements>
+        <modeler:editor-resource-id>sid-1EAC4808-059C-463E-8B24-89D2720278C6</modeler:editor-resource-id>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>sid-50F86AD3-FCF7-46A9-A40C-E878925EB678</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="sid-50F86AD3-FCF7-46A9-A40C-E878925EB678" sourceRef="sid-2F82965F-032E-4D52-9CA9-F38646C228E2" targetRef="sid-1EAC4808-059C-463E-8B24-89D2720278C6">
+      <bpmn2:extensionElements>
+        <modeler:editor-resource-id>sid-50F86AD3-FCF7-46A9-A40C-E878925EB678</modeler:editor-resource-id>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="Flow_14qrjcy" sourceRef="sid-D72DAE05-ECCE-48D7-AAA5-D80D1D5B2273" targetRef="Event_005ff1u" />
+    <bpmn2:intermediateThrowEvent id="Event_005ff1u" name="Simple score Validation">
+      <bpmn2:incoming>Flow_14qrjcy</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1nkntcb</bpmn2:outgoing>
+    </bpmn2:intermediateThrowEvent>
+    <bpmn2:sequenceFlow id="Flow_1nkntcb" sourceRef="Event_005ff1u" targetRef="Activity_013udhd" />
+    <bpmn2:intermediateThrowEvent id="Event_1bpc45i" name="Simple Credit Limit Validation">
+      <bpmn2:incoming>Flow_1f8hxhm</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1e7btrh</bpmn2:outgoing>
+    </bpmn2:intermediateThrowEvent>
+    <bpmn2:sequenceFlow id="Flow_1e7btrh" sourceRef="Event_1bpc45i" targetRef="sid-2F82965F-032E-4D52-9CA9-F38646C228E2" />
+    <bpmn2:serviceTask id="Activity_013udhd" name="Core Bank credit rating request" activiti:class="com.bank.creditCardRequest.Controllers.WorkflowController">
+      <bpmn2:incoming>Flow_1nkntcb</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0qw9aem</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_0qw9aem" sourceRef="Activity_013udhd" targetRef="Event_0kne1kr" />
+    <bpmn2:intermediateThrowEvent id="Event_0kne1kr" name="Simple Credit  Rating Validation">
+      <bpmn2:incoming>Flow_0qw9aem</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0sxqmwk</bpmn2:outgoing>
+    </bpmn2:intermediateThrowEvent>
+    <bpmn2:sequenceFlow id="Flow_0sxqmwk" sourceRef="Event_0kne1kr" targetRef="Activity_064v3ff" />
+    <bpmn2:serviceTask id="Activity_064v3ff" name="Business Rules Engine credit limit request" activiti:class="com.bank.creditCardRequest.Controllers.WorkflowController">
+      <bpmn2:incoming>Flow_0sxqmwk</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1f8hxhm</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_1f8hxhm" sourceRef="Activity_064v3ff" targetRef="Event_1bpc45i" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_CreditCardRequestWorkflow">
+    <bpmndi:BPMNPlane id="BPMNPlane_CreditCardRequestWorkflow" bpmnElement="CreditCardRequestWorkflow">
+      <bpmndi:BPMNShape id="BPMNShape_sid-D72DAE05-ECCE-48D7-AAA5-D80D1D5B2273" bpmnElement="sid-D72DAE05-ECCE-48D7-AAA5-D80D1D5B2273">
+        <omgdc:Bounds x="260" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_005ff1u_di" bpmnElement="Event_005ff1u">
+        <omgdc:Bounds x="398" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="384" y="145" width="65" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1mcgws9" bpmnElement="Activity_013udhd">
+        <omgdc:Bounds x="500" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1qs05c5" bpmnElement="Event_0kne1kr">
+        <omgdc:Bounds x="652" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="629" y="145" width="83" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent1">
+        <omgdc:Bounds x="155" y="105" width="30" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0y7o4dq" bpmnElement="Activity_064v3ff">
+        <omgdc:Bounds x="750" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1bpc45i_di" bpmnElement="Event_1bpc45i">
+        <omgdc:Bounds x="952" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="933" y="145" width="74" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_sid-2F82965F-032E-4D52-9CA9-F38646C228E2" bpmnElement="sid-2F82965F-032E-4D52-9CA9-F38646C228E2">
+        <omgdc:Bounds x="1070" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_sid-1EAC4808-059C-463E-8B24-89D2720278C6" bpmnElement="sid-1EAC4808-059C-463E-8B24-89D2720278C6">
+        <omgdc:Bounds x="1236" y="106" width="28" height="28" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_sid-63A1C71F-BC99-4379-B5EA-2F1F5E953BF0" bpmnElement="sid-63A1C71F-BC99-4379-B5EA-2F1F5E953BF0">
+        <omgdi:waypoint x="185" y="120" />
+        <omgdi:waypoint x="260" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sid-50F86AD3-FCF7-46A9-A40C-E878925EB678" bpmnElement="sid-50F86AD3-FCF7-46A9-A40C-E878925EB678">
+        <omgdi:waypoint x="1170" y="120" />
+        <omgdi:waypoint x="1236" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14qrjcy_di" bpmnElement="Flow_14qrjcy">
+        <omgdi:waypoint x="360" y="120" />
+        <omgdi:waypoint x="398" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nkntcb_di" bpmnElement="Flow_1nkntcb">
+        <omgdi:waypoint x="434" y="120" />
+        <omgdi:waypoint x="500" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1e7btrh_di" bpmnElement="Flow_1e7btrh">
+        <omgdi:waypoint x="988" y="120" />
+        <omgdi:waypoint x="1070" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qw9aem_di" bpmnElement="Flow_0qw9aem">
+        <omgdi:waypoint x="600" y="120" />
+        <omgdi:waypoint x="652" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sxqmwk_di" bpmnElement="Flow_0sxqmwk">
+        <omgdi:waypoint x="688" y="120" />
+        <omgdi:waypoint x="750" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f8hxhm_di" bpmnElement="Flow_1f8hxhm">
+        <omgdi:waypoint x="850" y="120" />
+        <omgdi:waypoint x="952" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

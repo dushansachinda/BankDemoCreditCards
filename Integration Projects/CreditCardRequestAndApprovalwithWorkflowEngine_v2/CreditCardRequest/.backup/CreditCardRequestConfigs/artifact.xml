@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="BusinessRulesEngineEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/BusinessRulesEngineEP.xml</file>
+    </artifact>
+    <artifact name="CIBRequestWorkFlowEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CIBRequestWorkFlowEP.xml</file>
+    </artifact>
+    <artifact name="CIBScoreRequestEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CIBScoreRequestEP.xml</file>
+    </artifact>
+    <artifact name="CMSRequestEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CMSRequestEP.xml</file>
+    </artifact>
+    <artifact name="CMSUpdateStatusEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CMSUpdateStatusEP.xml</file>
+    </artifact>
+    <artifact name="CoreBankRatingEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CoreBankRatingEP.xml</file>
+    </artifact>
+    <artifact name="CreditLimitWorkFlowEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CreditLimitWorkFlowEP.xml</file>
+    </artifact>
+    <artifact name="CreditRatingWorkFlowEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CreditRatingWorkFlowEP.xml</file>
+    </artifact>
+    <artifact name="WorkFlowStartEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/WorkFlowStartEP.xml</file>
+    </artifact>
+    <artifact name="CoreBankUserEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CoreBankUserEP.xml</file>
+    </artifact>
+    <artifact name="approveStatus" groupId="wso2.bankDemo.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/approveStatus.xml</file>
+    </artifact>
+    <artifact name="rejectStatus" groupId="wso2.bankDemo.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/rejectStatus.xml</file>
+    </artifact>
+    <artifact name="ValidUserId" groupId="wso2.bankDemo.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/ValidUserId.xml</file>
+    </artifact>
+    <artifact name="CreditCardRequestAPI" groupId="wso2.bankDemo.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/CreditCardRequestAPI.xml</file>
+    </artifact>
+    <artifact name="CreditCardRequestAPI_swagger" groupId="wso2.bankDemo.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/CreditCardRequestAPI_swagger.yaml</file>
+    </artifact>
+    <artifact name="CreditCardRequestAPI_metadata" groupId="wso2.bankDemo.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/CreditCardRequestAPI_metadata.yaml</file>
+    </artifact>
+</artifacts>

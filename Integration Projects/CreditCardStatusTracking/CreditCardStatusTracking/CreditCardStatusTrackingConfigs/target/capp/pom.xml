@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>wso2.bankDemo</groupId>
+  <artifactId>CreditCardStatusTrackingConfigs_module</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>CreditCardStatusTrackingConfigs_module</name>
+  <description>CreditCardStatusTrackingConfigs_module</description>
+  <modules>
+    <module>artifacts/api/CreditCardStatusTrackingAPI</module>
+    <module>artifacts/metadata/CreditCardStatusTrackingAPI_swagger</module>
+    <module>artifacts/metadata/CreditCardStatusTrackingAPI_metadata</module>
+    <module>artifacts/endpoint/CMSGetStatusEP</module>
+    <module>artifacts/endpoint/WorkFlowStatusEP</module>
+    <module>artifacts/sequence/FaultSequence</module>
+  </modules>
+  <distributionManagement>
+    <repository>
+      <id>release</id>
+      <name>Release Distribution Repository</name>
+      <url>https://example.com/nexus/repository</url>
+    </repository>
+  </distributionManagement>
+</project>

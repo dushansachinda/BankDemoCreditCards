@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="ValidUserId" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="full"/>
+    <call>
+        <endpoint key="CMSRequestEP"/>
+    </call>
+    <log level="full"/>
+    <propertyGroup>
+        <property expression="json-eval($.name)" name="name" scope="default" type="STRING"/>
+        <property expression="json-eval($.application_id)" name="referenceNumber" scope="default" type="STRING"/>
+        <property expression="json-eval($.application_id)" name="uri.var.application_id" scope="default" type="STRING"/>
+    </propertyGroup>
+    <payloadFactory media-type="json">
+        <format>{&#xd;
+  "applicant_name": "$1",&#xd;
+  "social_security_number": "$2",&#xd;
+  "address": "$3",&#xd;
+  "request_purpose": "Credit Card Application",&#xd;
+  "reference_number": "$4"&#xd;
+}</format>
+        <args>
+            <arg evaluator="xml" expression="get-property('name')"/>
+            <arg evaluator="xml" expression="get-property('uri.var.social_security_number')"/>
+            <arg evaluator="xml" expression="get-property('address')"/>
+            <arg evaluator="xml" expression="get-property('referenceNumber')"/>
+        </args>
+    </payloadFactory>
+    <log level="full"/>
+    <call>
+        <endpoint key="CIBScoreRequestEP"/>
+    </call>
+    <log level="full"/>
+    <call>
+        <endpoint key="CoreBankRatingEP"/>
+    </call>
+    <log level="full"/>
+    <propertyGroup>
+        <property expression="json-eval($.credit_score)" name="creditScore" scope="default" type="STRING"/>
+        <property expression="json-eval($.credit_rating)" name="creditRating" scope="default" type="STRING"/>
+    </propertyGroup>
+    <log level="full">
+        <property expression="get-property(creditScore)" name="score"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>{&#xd;
+  "user_id": "$1",&#xd;
+  "credit_score": $2,&#xd;
+  "credit_rating": "$3",&#xd;
+  "requested_credit_limit": $4&#xd;
+}</format>
+        <args>
+            <arg evaluator="xml" expression="get-property('uri.var.user_id')"/>
+            <arg evaluator="xml" expression="get-property('creditScore')"/>
+            <arg evaluator="xml" expression="get-property('creditRating')"/>
+            <arg evaluator="xml" expression="get-property('creditLimit')"/>
+        </args>
+    </payloadFactory>
+    <call>
+        <endpoint key="BusinessRulesEngineEP"/>
+    </call>
+    <log level="full"/>
+    <propertyGroup>
+        <property expression="json-eval($.user_id)" name="user_id" scope="default" type="STRING"/>
+        <property expression="json-eval($.credit_score)" name="credit_score" scope="default" type="STRING"/>
+        <property expression="json-eval($.credit_rating)" name="credit_rating" scope="default" type="STRING"/>
+        <property expression="json-eval($.requested_credit_limit)" name="requested_credit_limit" scope="default" type="STRING"/>
+        <property expression="json-eval($.approved_credit_limit)" name="approved_credit_limit" scope="default" type="STRING"/>
+        <property expression="json-eval($.message)" name="message" scope="default" type="STRING"/>
+    </propertyGroup>
+    <filter regex="Poor credit rating.Application rejected" source="get-property('message')">
+        <then>
+            <sequence key="rejectStatus"/>
+        </then>
+        <else>
+            <sequence key="approveStatus"/>
+        </else>
+    </filter>
+</sequence>

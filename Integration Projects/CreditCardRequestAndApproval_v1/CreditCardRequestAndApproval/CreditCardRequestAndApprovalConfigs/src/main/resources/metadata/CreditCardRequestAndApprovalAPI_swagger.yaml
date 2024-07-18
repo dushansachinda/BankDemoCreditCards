@@ -1,0 +1,23 @@
+openapi: 3.0.1
+info:
+  title: CreditCardRequestAndApprovalAPI
+  description: API Definition of CreditCardRequestAndApprovalAPI
+  version: 1.0.0
+servers:
+- url: /bank
+paths:
+  /creditCardRequest:
+    post:
+      requestBody:
+        description: Sample Payload
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+        required: false
+      responses:
+        default:
+          description: Default response

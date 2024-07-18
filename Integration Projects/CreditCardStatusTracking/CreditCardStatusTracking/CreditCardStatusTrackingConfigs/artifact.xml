@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="CMSGetStatusEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CMSGetStatusEP.xml</file>
+    </artifact>
+    <artifact name="CreditCardStatusTrackingAPI" groupId="wso2.bankDemo.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/CreditCardStatusTrackingAPI.xml</file>
+    </artifact>
+    <artifact name="CreditCardStatusTrackingAPI_swagger" groupId="wso2.bankDemo.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/CreditCardStatusTrackingAPI_swagger.yaml</file>
+    </artifact>
+    <artifact name="CreditCardStatusTrackingAPI_metadata" groupId="wso2.bankDemo.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/CreditCardStatusTrackingAPI_metadata.yaml</file>
+    </artifact>
+    <artifact name="WorkFlowStatusEP" groupId="wso2.bankDemo.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/WorkFlowStatusEP.xml</file>
+    </artifact>
+    <artifact name="FaultSequence" groupId="wso2.bankDemo.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/FaultSequence.xml</file>
+    </artifact>
+</artifacts>

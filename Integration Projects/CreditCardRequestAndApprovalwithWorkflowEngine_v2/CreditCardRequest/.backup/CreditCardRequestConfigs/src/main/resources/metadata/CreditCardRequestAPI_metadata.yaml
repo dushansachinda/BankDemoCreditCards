@@ -1,0 +1,11 @@
+---
+key: "CreditCardRequestAPI-1.0.0"
+name : "CreditCardRequestAPI"
+displayName : "CreditCardRequestAPI"
+description: "Sample API"
+version: "1.0.0"
+serviceUrl: "http://{MI_HOST}:{MI_PORT}/creditCard"
+definitionType: "OAS3"
+securityType: "BASIC"
+mutualSSLEnabled: false
+apiId : "null"

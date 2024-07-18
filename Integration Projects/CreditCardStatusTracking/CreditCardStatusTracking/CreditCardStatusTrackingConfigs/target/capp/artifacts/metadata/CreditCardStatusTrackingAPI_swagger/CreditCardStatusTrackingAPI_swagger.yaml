@@ -1,0 +1,21 @@
+openapi: 3.0.1
+info:
+  title: CreditCardStatusTrackingAPI
+  description: API Definition of CreditCardStatusTrackingAPI
+  version: 1.0.0
+servers:
+- url: http://localhost:8290/creditcardrequest_application
+paths:
+  /status/{application_id}:
+    get:
+      parameters:
+      - name: application_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response

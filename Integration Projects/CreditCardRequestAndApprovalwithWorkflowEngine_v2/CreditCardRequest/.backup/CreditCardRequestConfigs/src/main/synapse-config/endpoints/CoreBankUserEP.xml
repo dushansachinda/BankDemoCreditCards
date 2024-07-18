@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="CoreBankUserEP" xmlns="http://ws.apache.org/ns/synapse">
+    <http method="get" uri-template="http://core-bank:9095/cbs/users/search?first_name={uri.var.first_name}&amp;last_name={uri.var.last_name}&amp;social_security_number={uri.var.social_security_number}">
+        <suspendOnFailure>
+            <initialDuration>-1</initialDuration>
+            <progressionFactor>1.0</progressionFactor>
+        </suspendOnFailure>
+        <markForSuspension>
+            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+        </markForSuspension>
+    </http>
+</endpoint>

@@ -1,0 +1,8 @@
+[container.image]
+name="business-rules-engine"
+tag="0.1.0"
+
+[[container.copy.files]]
+sourceFile = "../CoreBank/creditRating.json"
+target = "../CoreBank/creditRating.json"
+

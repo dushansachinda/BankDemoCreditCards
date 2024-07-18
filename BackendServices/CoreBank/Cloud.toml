@@ -1,0 +1,25 @@
+[container.image]
+name = "core-bank"
+tag = "0.1.0"
+
+[[container.copy.files]]
+sourceFile = "./userDetails.json"
+target = "./userDetails.json"
+
+
+[[container.copy.files]]
+sourceFile = "./creditRating.json"
+target = "./creditRating.json"
+
+[[container.copy.files]]
+sourceFile="./creditCardAuthorizationDetails.json"
+target="./creditCardAuthorizationDetails.json"
+
+[[container.copy.files]]
+sourceFile="./creditCardDetails.json"
+target="./creditCardDetails.json"
+
+
+[[container.copy.files]]
+sourceFile="../CMS/requests.json"
+target="../CMS/requests.json"
