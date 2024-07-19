@@ -284,7 +284,7 @@ modules = [
 ]
 
 [[package]]
-org = "dharane_segar"
+org = "hahack23"
 name = "core"
 version = "0.1.0"
 dependencies = [
@@ -293,6 +293,6 @@ dependencies = [
 	{org = "ballerinai", name = "observe"}
 ]
 modules = [
-	{org = "dharane_segar", packageName = "core", moduleName = "core"}
+	{org = "hahack23", packageName = "core", moduleName = "core"}
 ]
 
