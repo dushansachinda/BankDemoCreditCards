@@ -1,0 +1,3 @@
+[container.image]
+name = "bank-service"
+tag = "0.1.0"
