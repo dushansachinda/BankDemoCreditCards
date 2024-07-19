@@ -5,7 +5,7 @@ string userDetailsFile = "./userDetails.json";
 string creditRatingFile = "./creditRating.json";
 string creditCardAuthDetailsFile = "./creditCardAuthorizationDetails.json";
 string creditCardDetailsFile = "./creditCardDetails.json";
-string requestsFilePath = "../CMS/requests.json";
+string requestsFilePath = "./requests.json";
 
 service /cbs on new http:Listener(9095) {
 
