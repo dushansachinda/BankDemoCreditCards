@@ -35,7 +35,7 @@ type NewCustomer record {
     string phone;
 };
 
-service /bankService on new http:Listener(8080) {
+service /bankService on new http:Listener(9090) {
 
     resource function get accounts(http:Caller caller, http:Request req) returns error? {
         json accounts = [
